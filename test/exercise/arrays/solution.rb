@@ -12,20 +12,17 @@ module Exercise
         max_num
       end
 
-      def search(array, query)
-        binary_search = lambda { |left, right|
-          return -1 if left > right
+      def search(array, query, left = 0, right = array.length - 1)
+        return -1 if left > right || array[right] < query
 
-          mid = (left + right) / 2
+        mid = (left + right) / 2
 
-          return mid if array[mid] == query
+        return mid if array[mid] == query
 
-          left = mid + 1 if array[mid] < query
-          right = mid - 1 if array[mid] > query
+        left = mid + 1 if array[mid] < query
+        right = mid - 1 if array[mid] > query
 
-          binary_search.call(left, right)
-        }
-        binary_search.call(0, array.length - 1)
+        search(array, query, left, right)
       end
     end
   end
