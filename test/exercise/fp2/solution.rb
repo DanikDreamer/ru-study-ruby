@@ -26,8 +26,11 @@ module Exercise
 
       # Написать свою функцию my_reduce
       def my_reduce(acc = nil, &block)
-        my_each { |el| acc = acc.nil? ? el : block.call(acc, el) }
-        acc
+        head, *tail = self
+        acc = acc.nil? ? head : block.call(acc, head)
+        return acc if tail.empty?
+
+        MyArray.new(tail).my_reduce(acc, &block)
       end
     end
   end
